@@ -2,29 +2,29 @@ import pandas as pd
 import requests
 from matching import normalize_address, similar_name
 
+
 def download_permit_data():
-
-    # Missouri open data CSV endpoint
     url = "https://data.mo.gov/resource/6k9t-2f4v.csv?$limit=50000"
-
     response = requests.get(url)
 
-    with open("liquor_permits.csv","wb") as f:
+    with open("liquor_permits.csv", "wb") as f:
         f.write(response.content)
+
 
 def run_pipeline():
 
-    # 🔥 AUTO DOWNLOAD DATA
+    # Download latest data
     download_permit_data()
 
     df = pd.read_csv("liquor_permits.csv")
 
-  customers = pd.read_csv(
-    "data/usfoods_customers.csv",
-    sep="\t",
-    names=["DBA", "LOCATION"],
-    encoding="utf-8"
-)
+    # Load customer file (TAB separated)
+    customers = pd.read_csv(
+        "data/usfoods_customers.csv",
+        sep="\t",
+        names=["DBA", "LOCATION"],
+        encoding="utf-8"
+    )
 
     results = []
 
