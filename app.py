@@ -1,21 +1,11 @@
 import streamlit as st
-import pandas as pd
 from pipeline import run_pipeline
 
 st.title("Restaurant Prospect AI")
 
-uploaded_file = st.file_uploader("Upload Missouri Permit CSV")
+if st.button("Run Pipeline (Fetch Latest Data)"):
 
-if uploaded_file:
-
-    with open("liquor_permits.csv","wb") as f:
-        f.write(uploaded_file.getbuffer())
-
-    st.success("File uploaded")
-
-if st.button("Run Pipeline"):
-
-    with st.spinner("Processing..."):
+    with st.spinner("Fetching and processing data..."):
 
         df = run_pipeline()
 
