@@ -19,7 +19,11 @@ def run_pipeline():
 
     df = pd.read_csv("liquor_permits.csv")
 
-    customers = pd.read_csv("data/usfoods_customers.csv")
+   customers = pd.read_csv(
+    "data/usfoods_customers.csv",
+    encoding="utf-8",
+    on_bad_lines="skip"
+)
 
     results = []
 
